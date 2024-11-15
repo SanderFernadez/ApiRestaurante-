@@ -1,5 +1,4 @@
 ﻿
-
 using ApiRestaurante.Core.Application.Interfaces.Repositories;
 using ApiRestaurante.Core.Domain.Entities;
 using ApiRestaurante.Infrastructure.Persistence.Repository;
@@ -11,9 +10,9 @@ namespace ApiRestaurante.Infrastructure.Persistence.Repositories
     {
         private readonly PersistenceContext _dbContext;
 
-        public OrderPlateRepository(PersistenceContext dbContext) : base(dbContext) { 
-        
-        
+        public OrderPlateRepository(PersistenceContext dbContext) : base(dbContext) {
+
+            _dbContext = dbContext;
         }
     }
 }

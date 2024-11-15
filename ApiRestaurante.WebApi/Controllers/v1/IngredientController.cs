@@ -70,22 +70,22 @@ namespace ApiRestaurante.WebApi.Controllers.v1
         }
 
 
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IngredientViewModel))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Get()
         {
             try
             {
-                var product = await _ingredientService.GetByIdSaveViewModel(id);
+                var ingredients = await _ingredientService.GetAllListViewModel();
 
-                if (product == null)
+                if (ingredients == null || ingredients.Count == 0)
                 {
-                    return BadRequest();
+                    return NoContent();
                 }
 
-                await _ingredientService.Delete(id);
-                return NoContent();
+                return Ok(ingredients);
             }
             catch (Exception ex)
             {

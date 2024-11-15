@@ -11,7 +11,7 @@ namespace ApiRestaurante.Infrastructure.Identity.Seeds
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             ApplicationUser defaultUser = new();
-            defaultUser.UserName = "adminuser";
+            defaultUser.UserName = "Adminuser";
             defaultUser.Email = "AdminUser@gmail.com";
             defaultUser.FirstName = "Jhon";
             defaultUser.LastName = "Doe";

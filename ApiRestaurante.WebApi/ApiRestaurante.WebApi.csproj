@@ -27,4 +27,9 @@
     <ProjectReference Include="..\ApiRestaurante.Infrastructure.Persistence\ApiRestaurante.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\v2\" />
+    <Folder Include="Controllers\v1\" />
+  </ItemGroup>
+
 </Project>

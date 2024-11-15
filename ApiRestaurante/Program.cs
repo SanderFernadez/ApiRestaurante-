@@ -30,6 +30,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+await app.Services.RunAsyncSeed();
+app.UseSession();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -41,4 +44,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+await app.RunAsync();

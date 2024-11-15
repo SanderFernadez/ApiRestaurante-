@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ApiRestaurante.Infrastructure.Identity.Seeds;
 using Microsoft.EntityFrameworkCore;
 using ApiRestaurante.Infrastructure.Identity.Services;
+using ApiRestaurante.Core.Application.Interfaces.Services;
 
 namespace ApiRestaurante.Infrastructure.Identity
 {
@@ -53,7 +54,7 @@ namespace ApiRestaurante.Infrastructure.Identity
             #endregion
 
             #region Services
-            //services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountService, AccountService>();
             #endregion
 
         }

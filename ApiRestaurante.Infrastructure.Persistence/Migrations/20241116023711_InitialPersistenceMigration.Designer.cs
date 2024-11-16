@@ -11,7 +11,7 @@ using RestauranteApi.Infrastructure.Persistence.Contexts;
 namespace ApiRestaurante.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(PersistenceContext))]
-    [Migration("20241115203131_InitialPersistenceMigration")]
+    [Migration("20241116023711_InitialPersistenceMigration")]
     partial class InitialPersistenceMigration
     {
         /// <inheritdoc />

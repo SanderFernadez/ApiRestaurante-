@@ -18,6 +18,6 @@ namespace ApiRestaurante.Core.Application.ViewModels.Orders
       
         public OrderStatus Status { get; set; }
 
-        public ICollection<OrderPlate> OrderPlate { get; set; }
+        
     }
 }

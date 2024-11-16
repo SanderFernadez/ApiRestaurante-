@@ -1,6 +1,4 @@
 ﻿using ApiRestaurante.Core.Application.Interfaces.Services;
-using ApiRestaurante.Core.Application.Services;
-using ApiRestaurante.Core.Application.ViewModels.Orders;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using RestauranteApi.Core.Application.ViewModels.Tables;

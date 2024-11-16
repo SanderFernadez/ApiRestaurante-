@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiRestaurante.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20241115204053_InitialIdentityMigration")]
+    [Migration("20241116023755_InitialIdentityMigration")]
     partial class InitialIdentityMigration
     {
         /// <inheritdoc />

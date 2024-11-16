@@ -42,13 +42,15 @@ namespace ApiRestaurante.Core.Application.Mappings
             #region Order
             CreateMap<Order, SaveOrderViewModel>()
                 .ReverseMap()
-                .ForMember(x => x.Mesa, opt => opt.Ignore());
-                
+                .ForMember(x => x.Mesa, opt => opt.Ignore())
+                .ForMember(x => x.OrderPlate, opt => opt.Ignore());
+
 
 
             CreateMap<Order, OrderViewModel>()
                 .ReverseMap()
-                .ForMember(x => x.Mesa, opt => opt.Ignore()); 
+                .ForMember(x => x.Mesa, opt => opt.Ignore())
+                .ForMember(x => x.OrderPlate, opt => opt.Ignore());
 
 
             CreateMap<OrderViewModel, SaveOrderViewModel>()

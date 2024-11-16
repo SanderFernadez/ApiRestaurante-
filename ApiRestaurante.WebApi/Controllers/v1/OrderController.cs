@@ -1,21 +1,21 @@
 ﻿using ApiRestaurante.Core.Application.Interfaces.Services;
-using ApiRestaurante.Core.Application.ViewModels.Plates;
+using ApiRestaurante.Core.Application.ViewModels.Orders;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
 
+
+
 namespace ApiRestaurante.WebApi.Controllers.v1
 {
-
     [ApiVersion("1.0")]
-    public class PlatesController : BaseApiController
+    public class OrderController : BaseApiController
     {
-        private readonly IPlateService _plateService;
+        private readonly IOrderService _OrderService;
 
-
-        public PlatesController(IPlateService plateService)
+        public OrderController(IOrderService OrderService)
         {
-            _plateService = plateService;
+            _OrderService = OrderService;
         }
 
 
@@ -23,7 +23,7 @@ namespace ApiRestaurante.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Post(SavePlateViewModel vm)
+        public async Task<IActionResult> Post(SaveOrderViewModel vm)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace ApiRestaurante.WebApi.Controllers.v1
                     return BadRequest();
                 }
 
-                await _plateService.Add(vm);
+                await _OrderService.Add(vm);
                 return NoContent();
             }
             catch (Exception ex)
@@ -42,11 +42,12 @@ namespace ApiRestaurante.WebApi.Controllers.v1
         }
 
 
+
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SavePlateViewModel))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SaveOrderViewModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Put(int id, SavePlateViewModel vm)
+        public async Task<IActionResult> Put(int id, SaveOrderViewModel vm)
         {
             try
             {
@@ -55,14 +56,14 @@ namespace ApiRestaurante.WebApi.Controllers.v1
                     return BadRequest();
                 }
 
-                var plates = await _plateService.GetByIdSaveViewModel(id);
+                var orders = await _OrderService.GetByIdSaveViewModel(id);
 
-                if (plates == null)
+                if (orders == null)
                 {
                     return BadRequest();
                 }
 
-                await _plateService.Update(vm, id);
+                await _OrderService.Update(vm, id);
                 return Ok(vm);
             }
             catch (Exception ex)
@@ -73,9 +74,8 @@ namespace ApiRestaurante.WebApi.Controllers.v1
 
 
 
-
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlateViewModel))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OrderViewModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
@@ -83,14 +83,14 @@ namespace ApiRestaurante.WebApi.Controllers.v1
         {
             try
             {
-                var plates = await _plateService.GetAllListViewModel();
+                var order = await _OrderService.GetAllListViewModel();
 
-                if (plates == null || plates.Count == 0)
+                if (order == null || order.Count == 0)
                 {
                     return NoContent();
                 }
 
-                return Ok(plates);
+                return Ok(order);
             }
             catch (Exception ex)
             {
@@ -99,28 +99,55 @@ namespace ApiRestaurante.WebApi.Controllers.v1
         }
 
 
+
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SavePlateViewModel))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SaveOrderViewModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var Plates = await _plateService.GetByIdSaveViewModel(id);
+                var orders = await _OrderService.GetByIdSaveViewModel(id);
 
-                if (Plates == null)
+                if (orders == null)
                 {
                     return NoContent();
                 }
 
-                return Ok(Plates);
+                return Ok(orders);
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var orders = await _OrderService.GetByIdSaveViewModel(id);
+
+                if (orders == null)
+                {
+                    return BadRequest();
+                }
+
+                await _OrderService.Delete(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
 
     }

@@ -39,6 +39,7 @@ namespace ApiRestaurante.WebApi.Controllers.v1
             }
         }
 
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SaveIngredientViewModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -86,6 +87,30 @@ namespace ApiRestaurante.WebApi.Controllers.v1
                 }
 
                 return Ok(ingredients);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var ingredients = await _ingredientService.GetByIdSaveViewModel(id);
+
+                if (ingredients == null)
+                {
+                    return BadRequest();
+                }
+
+                await _ingredientService.Delete(id);
+                return NoContent();
             }
             catch (Exception ex)
             {

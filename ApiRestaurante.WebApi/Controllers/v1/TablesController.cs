@@ -1,6 +1,6 @@
 ﻿using ApiRestaurante.Core.Application.Interfaces.Services;
 using ApiRestaurante.Core.Application.Services;
-using ApiRestaurante.Core.Application.ViewModels.Plates;
+using ApiRestaurante.Core.Application.ViewModels.Orders;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using RestauranteApi.Core.Application.ViewModels.Tables;
@@ -78,9 +78,9 @@ namespace ApiRestaurante.WebApi.Controllers.v1
                     return BadRequest();
                 }
 
-                var plates = await _tableService.GetByIdSaveViewModel(id);
+                var tables = await _tableService.GetByIdSaveViewModel(id);
 
-                if (plates == null)
+                if (tables == null)
                 {
                     return BadRequest();
                 }
@@ -94,8 +94,9 @@ namespace ApiRestaurante.WebApi.Controllers.v1
             }
         }
 
+
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SavePlateViewModel))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TableViewModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
@@ -103,23 +104,20 @@ namespace ApiRestaurante.WebApi.Controllers.v1
         {
             try
             {
-                var Tables = await _tableService.GetAllListViewModel();
+                var tables = await _tableService.GetAllListViewModel();
 
-                if (Tables == null || Tables.Count == 0)
+                if (tables == null || tables.Count == 0)
                 {
                     return NoContent();
                 }
 
-                return Ok(Tables);
+                return Ok(tables);
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
-
-
 
     }
 }

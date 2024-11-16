@@ -22,6 +22,6 @@ namespace ApiRestaurante.Core.Application.ViewModels.Plates
 
        
         public PlateCategory Category { get; set; }
-        public ICollection<PlateIngredient> PlateIngredients { get; set; }
+        
     }
 }

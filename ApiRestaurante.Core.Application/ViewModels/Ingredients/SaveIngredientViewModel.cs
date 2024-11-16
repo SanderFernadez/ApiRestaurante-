@@ -8,7 +8,7 @@ namespace ApiRestaurante.Core.Application.ViewModels.Ingredients
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Debe colocar el nombre de la categoria")]
         [MaxLength(50)]
         public string Name { get; set; }
     }

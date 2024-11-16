@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using ApiRestaurante.Core.Application.Interfaces.Services;
+using ApiRestaurante.Core.Application.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace ApiRestaurante.Core.Application
@@ -8,12 +10,17 @@ namespace ApiRestaurante.Core.Application
         public static void AddApplicationLayer(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            //#region Services
-            //services.AddTransient(typeof(IGenericService<,,>), typeof(GenericService<,,>));
-            //services.AddTransient<IProductService, ProductService>();
-            //services.AddTransient<ICategoryService, CategoryService>();
-            //services.AddTransient<IUserService, UserService>();
-            //#endregion
+
+
+            #region Services
+            services.AddTransient(typeof(IGenericService<,,>), typeof(GenericService<,,>));
+            services.AddTransient<IIngredientService, IngredientService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IPlateService, PlateService>();
+            services.AddTransient<ITableService, TableService>();
+            services.AddTransient<IPlateService, PlateService>();
+            services.AddTransient<IPlateIngredientService, PlateIngredientService>();
+            #endregion
         }
     }
 }

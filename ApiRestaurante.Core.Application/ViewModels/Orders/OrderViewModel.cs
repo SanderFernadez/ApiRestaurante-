@@ -9,7 +9,7 @@ namespace ApiRestaurante.Core.Application.ViewModels.Orders
         public int Id { get; set; }
 
         public int MesaId { get; set; }
-        public Table Mesa { get; set; }
+        
 
         
         public decimal Subtotal { get; set; }
@@ -17,7 +17,7 @@ namespace ApiRestaurante.Core.Application.ViewModels.Orders
     
         public OrderStatus Status { get; set; }
 
-        public ICollection<OrderPlate> OrderPlate { get; set; }
+ 
     }
 
 }

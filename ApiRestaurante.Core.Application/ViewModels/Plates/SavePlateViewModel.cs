@@ -1,7 +1,7 @@
 ﻿
 using ApiRestaurante.Core.Domain.Entities;
 using ApiRestaurante.Core.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
+
 
 
 namespace ApiRestaurante.Core.Application.ViewModels.Plates
@@ -20,8 +20,8 @@ namespace ApiRestaurante.Core.Application.ViewModels.Plates
     
         public int Servings { get; set; }
 
-       
         public PlateCategory Category { get; set; }
+
         public ICollection<PlateIngredient> PlateIngredients { get; set; }
     }
 }

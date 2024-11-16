@@ -21,7 +21,7 @@ namespace ApiRestaurante.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Post(SaveIngredientViewModel vm)
+        public async Task<IActionResult> Create (SaveIngredientViewModel vm)
         {
             try
             {

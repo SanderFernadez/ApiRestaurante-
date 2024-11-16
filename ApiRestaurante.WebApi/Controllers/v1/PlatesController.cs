@@ -1,19 +1,23 @@
 ﻿using ApiRestaurante.Core.Application.Interfaces.Services;
+using ApiRestaurante.Core.Application.Services;
 using ApiRestaurante.Core.Application.ViewModels.Ingredients;
+using ApiRestaurante.Core.Application.ViewModels.Plates;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace ApiRestaurante.WebApi.Controllers.v1
 {
 
     [ApiVersion("1.0")]
-    public class IngredientController : BaseApiController
+    public class PlatesController : BaseApiController
     {
-        private readonly IIngredientService _ingredientService;
+        private readonly IPlateService _plateService;
 
-        public IngredientController(IIngredientService ingredientService)
+
+        public PlatesController(IPlateService plateService)
         {
-            _ingredientService = ingredientService;
+            _plateService = plateService;
         }
 
 
@@ -21,7 +25,7 @@ namespace ApiRestaurante.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Post(SaveIngredientViewModel vm)
+        public async Task<IActionResult> Post(SavePlateViewModel vm)
         {
             try
             {
@@ -30,7 +34,7 @@ namespace ApiRestaurante.WebApi.Controllers.v1
                     return BadRequest();
                 }
 
-                await _ingredientService.Add(vm);
+                await _plateService.Add(vm);
                 return NoContent();
             }
             catch (Exception ex)
@@ -39,11 +43,12 @@ namespace ApiRestaurante.WebApi.Controllers.v1
             }
         }
 
+
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SaveIngredientViewModel))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SavePlateViewModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Put(int id, SaveIngredientViewModel vm)
+        public async Task<IActionResult> Put(int id, SavePlateViewModel vm)
         {
             try
             {
@@ -52,14 +57,14 @@ namespace ApiRestaurante.WebApi.Controllers.v1
                     return BadRequest();
                 }
 
-                var ingredient = await _ingredientService.GetByIdSaveViewModel(id);
+                var plates = await _plateService.GetByIdSaveViewModel(id);
 
-                if (ingredient == null)
+                if (plates == null)
                 {
                     return BadRequest();
                 }
 
-                await _ingredientService.Update(vm, id);
+                await _plateService.Update(vm, id);
                 return Ok(vm);
             }
             catch (Exception ex)
@@ -69,8 +74,10 @@ namespace ApiRestaurante.WebApi.Controllers.v1
         }
 
 
+
+
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IngredientViewModel))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SavePlateViewModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
@@ -78,7 +85,7 @@ namespace ApiRestaurante.WebApi.Controllers.v1
         {
             try
             {
-                var ingredients = await _ingredientService.GetAllListViewModel();
+                var ingredients = await _plateService.GetAllListViewModel();
 
                 if (ingredients == null || ingredients.Count == 0)
                 {
@@ -86,6 +93,30 @@ namespace ApiRestaurante.WebApi.Controllers.v1
                 }
 
                 return Ok(ingredients);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SavePlateViewModel))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
+                var Plates = await _plateService.GetByIdSaveViewModel(id);
+
+                if (Plates == null)
+                {
+                    return NoContent();
+                }
+
+                return Ok(Plates);
             }
             catch (Exception ex)
             {
